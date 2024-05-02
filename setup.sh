@@ -27,10 +27,10 @@ export PATH=$WALLY/bin:$PATH
 ulimit -c 234613
 
 # load site licenses and tool locations
-if [ -f ${RISCV}/site-setup.sh ]; then
-    source ${RISCV}/site-setup.sh
-else
-    source ${WALLY}/site-setup.sh
-fi
+#if [ -f ${RISCV}/site-setup.sh ]; then
+#    source ${RISCV}/site-setup.sh
+#else
+#    source ${WALLY}/site-setup.sh
+#fi
 
 echo "setup done"
