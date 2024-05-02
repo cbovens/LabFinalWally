@@ -68,9 +68,11 @@ localparam DTLB_ENTRIES = 32'd0;
 localparam DCACHE_NUMWAYS = 32'd4;
 localparam DCACHE_WAYSIZEINBYTES = 32'd4096;
 localparam DCACHE_LINELENINBITS = 32'd512;
+localparam DCACHE_SWITCH = 32'b0; //added
 localparam ICACHE_NUMWAYS = 32'd4;
 localparam ICACHE_WAYSIZEINBYTES = 32'd4096;
 localparam ICACHE_LINELENINBITS = 32'd512;
+localparam ICACHE_SWITCH = 32'b0; //added
 localparam CACHE_SRAMLEN = 32'd128;
 
 // Integer Divider Configuration
