@@ -81,9 +81,11 @@ typedef struct packed {
   int           DCACHE_NUMWAYS;
   int           DCACHE_WAYSIZEINBYTES;
   int           DCACHE_LINELENINBITS;
+  int           DCACHE_SWITCH;
   int           ICACHE_NUMWAYS;
   int           ICACHE_WAYSIZEINBYTES;
   int           ICACHE_LINELENINBITS;
+  int           ICACHE_SWITCH;
   int           CACHE_SRAMLEN;
 
 // Integer Divider Configuration
