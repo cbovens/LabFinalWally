@@ -3,7 +3,7 @@
 module cacheLFSR
   #(parameter NUMWAYS = 4, SETLEN = 9, OFFSETLEN = 5, NUMLINES = 128) (
   input  logic                clk, 
-  input  logic                load,
+  input  logic                reset,
   input  logic                FlushStage,
   input  logic                CacheEn,         // Enable the cache memory arrays.  Disable hold read data constant
   input  logic [NUMWAYS-1:0]  HitWay,          // Which way is valid and matches PAdr's tag
@@ -11,7 +11,7 @@ module cacheLFSR
   input  logic [SETLEN-1:0]   CacheSetData,    // Cache address, the output of the address select mux, NextAdr, PAdr, or FlushAdr
   input  logic [SETLEN-1:0]   CacheSetTag,     // Cache address, the output of the address select mux, NextAdr, PAdr, or FlushAdr
   input  logic [SETLEN-1:0]   PAdr,            // Physical address 
-  input  logic                LFSRWriteEn,      // Update the LRU state
+  input  logic                LRUWriteEn,      // Update the LRU state
   input  logic                SetValid,        // Set the dirty bit in the selected way and set
   input  logic                ClearValid,      // Clear the dirty bit in the selected way and set
   input  logic                InvalidateCache, // Clear all valid bits
@@ -27,7 +27,7 @@ module cacheLFSR
    logic [LOGNUMWAYS+1:0] d, q, val;
 
    assign AllValid = &ValidWay; //& ValidWay with itself returns a boolean value
-   assign RegEn = ~FlushStage & LFSRWriteEn;
+   assign RegEn = ~FlushStage & LRUWriteEn;
 
    //"Seed" value
    assign val[0] = 1'b1;
@@ -38,7 +38,7 @@ module cacheLFSR
    mux2 #(LOGNUMWAYS) LSFRWayMuxEnc(FirstZeroWay, q[LOGNUMWAYS-1:0], AllValid, VictimWayEnc); //What is Curr[1:0]???
    decoder #(LOGNUMWAYS) DecoderMod(VictimWayEnc, VictimWay);
 
-flopenl #(LOGNUMWAYS+2) LogicLFSR(clk, load, LFSRWriteEn, q, val, d); //+2 for first and last flop
+flopenl #(LOGNUMWAYS+2) LogicLFSR(clk, reset, LRUWriteEn, q, val, d); //+2 for first and last flop
 assign q[LOGNUMWAYS:0] = d[LOGNUMWAYS+1:1];
 
 //XOR poly logic on bit selection
